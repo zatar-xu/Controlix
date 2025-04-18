@@ -1,0 +1,551 @@
+<!DOCTYPE html><html lang="en"><head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Controlix - Discord Bot</title>
+
+  <link rel="icon" href="images/54a716d67eb501d91845681beaa724b7.webp">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Cairo:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+
+    * { box-sizing: border-box; scroll-behavior: smooth; }
+
+    body {
+
+      margin: 0;
+
+      padding: 0;
+
+      font-family: 'Poppins', sans-serif;
+
+      background: #0e0e1a;
+
+      color: #fff;
+
+      overflow-x: hidden;
+
+      direction: ltr;
+
+      animation: fadeIn 1s ease-out;
+
+    }
+
+    @keyframes fadeIn {
+
+      0% { opacity: 0; }
+
+      100% { opacity: 1; }
+
+    }
+
+    #bgCanvas {
+
+      position: fixed;
+
+      top: 0; left: 0;
+
+      z-index: -1;
+
+      width: 100vw;
+
+      height: 100vh;
+
+    }
+
+    header {
+
+      position: fixed;
+
+      width: 100%;
+
+      top: 0;
+
+      left: 0;
+
+      background: rgba(0, 0, 0, 0.6);
+
+      padding: 10px 20px;
+
+      z-index: 1000;
+
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      animation: slideIn 1s ease-out;
+
+    }
+
+    @keyframes slideIn {
+
+      0% { transform: translateY(-100%); }
+
+      100% { transform: translateY(0); }
+
+    }
+
+    .menu a {
+
+      color: #fff;
+
+      text-decoration: none;
+
+      margin-left: 20px;
+
+      font-weight: 500;
+
+      transition: 0.3s;
+
+    }
+
+    .menu a:hover {
+
+      color: #00ffee;
+
+      transform: scale(1.1);
+
+    }
+
+    .language-btn {
+
+      background: #1e1e2f;
+
+      border: 1px solid #7f5af0;
+
+      color: #fff;
+
+      padding: 6px 12px;
+
+      border-radius: 8px;
+
+      margin-left: 20px;
+
+      cursor: pointer;
+
+      transition: 0.3s;
+
+    }
+
+    .language-btn:hover {
+
+      background: #7f5af0;
+
+    }
+
+    .hero {
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+
+      justify-content: center;
+
+      min-height: 100vh;
+
+      padding-top: 80px;
+
+      text-align: center;
+
+      animation: fadeUp 1s ease-out;
+
+    }
+
+    @keyframes fadeUp {
+
+      0% { opacity: 0; transform: translateY(50px); }
+
+      100% { opacity: 1; transform: translateY(0); }
+
+    }
+
+    .bot-image {
+
+      width: 150px;
+
+      height: 150px;
+
+      border-radius: 50%;
+
+      border: 5px solid #7f5af0;
+
+      box-shadow: 0 0 20px #7f5af0;
+
+      margin-bottom: 20px;
+
+      animation: pulse 2s infinite alternate;
+
+    }
+
+    @keyframes pulse {
+
+      0% { transform: scale(1); box-shadow: 0 0 20px #7f5af0; }
+
+      100% { transform: scale(1.1); box-shadow: 0 0 40px #7f5af0; }
+
+    }
+
+    .hero h1 {
+
+      font-size: 3em;
+
+      color: #00ffee;
+
+      margin: 0;
+
+      font-family: 'Cairo', sans-serif; /* Arabic Font */
+
+    }
+
+    .hero p {
+
+      max-width: 700px;
+
+      margin: 20px auto;
+
+      font-size: 1.2em;
+
+      color: #ccc;
+
+      font-family: 'Poppins', sans-serif; /* English Font */
+
+    }
+
+    .buttons {
+
+      margin-top: 20px;
+
+    }
+
+    .buttons a {
+
+      background-color: #7f5af0;
+
+      padding: 12px 24px;
+
+      margin: 0 10px;
+
+      font-size: 1em;
+
+      color: white;
+
+      text-decoration: none;
+
+      border-radius: 8px;
+
+      transition: 0.3s;
+
+      display: inline-block;
+
+    }
+
+    .buttons a:hover {
+
+      background-color: #6246ea;
+
+      transform: translateY(-5px);
+
+    }
+
+    .features-section {
+
+      padding: 60px 20px;
+
+      background: rgba(18, 18, 33, 0.95);
+
+      display: grid;
+
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+      gap: 30px;
+
+      animation: fadeInSection 1.5s ease-out;
+
+    }
+
+    @keyframes fadeInSection {
+
+      0% { opacity: 0; transform: translateY(30px); }
+
+      100% { opacity: 1; transform: translateY(0); }
+
+    }
+
+    .feature {
+
+      background: rgba(255, 255, 255, 0.05);
+
+      border: 1px solid #2c2c3e;
+
+      border-radius: 15px;
+
+      padding: 20px;
+
+      text-align: center;
+
+      transition: 0.3s;
+
+    }
+
+    .feature:hover {
+
+      transform: translateY(-5px);
+
+      box-shadow: 0 10px 20px rgba(127, 90, 240, 0.3);
+
+    }
+
+    .feature h3 {
+
+      color: #00ffee;
+
+    }
+
+    .feature p {
+
+      color: #bbb;
+
+    }
+
+    footer {
+
+      background: #0a0a14;
+
+      padding: 15px 10px;
+
+      text-align: center;
+
+      font-size: 1em;
+
+    }
+
+    footer a {
+
+      color: #7f5af0;
+
+      text-decoration: none;
+
+    }
+
+    @media (max-width: 768px) {
+
+      .hero h1 { font-size: 2.2em; }
+
+      .hero p { font-size: 1em; }
+
+      .buttons a { margin: 8px 5px; }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+<canvas id="bgCanvas"></canvas>
+
+<header>
+
+  <div style="font-weight: bold; font-size: 20px;">Controlix</div>
+
+  <div class="menu">
+
+    <a href="#features" data-en="Features" data-ar="الميزات">Features</a>
+
+    <a href="#support" data-en="Support" data-ar="الدعم">Support</a>
+
+    <button class="language-btn" id="langBtn">AR</button>
+
+  </div>
+
+</header>
+
+<section class="hero">
+
+  <img src="images/54a716d67eb501d91845681beaa724b7.webp" alt="Controlix Bot" class="bot-image">
+
+  <h1 id="botName">Controlix</h1>
+
+  <p id="desc">Controlix is a powerful, verified Discord bot equipped with advanced server management tools including protection systems, ticket support, giveaways, games, ranking, and more to satisfy all server needs.</p>
+
+  <div class="buttons">
+
+    <a href="https://discord.com/oauth2/authorize?client_id=1360671143794835738&permissions=8&integration_type=0&scope=bot+applications.commands" data-en="Add Bot" data-ar="إضافة البوت">Add Bot</a>
+
+    <a href="https://discord.gg/YOUR_SUPPORT_SERVER" id="support" data-en="Support Server" data-ar="سيرفر الدعم">Support Server</a>
+
+  </div>
+
+</section>
+
+<section class="features-section" id="features">
+
+  <div class="feature">
+
+    <h3 data-en="System Management" data-ar="نظام الإدارة">System Management</h3>
+
+    <p data-en="Complete control over roles, channels, and automated systems." data-ar="تحكم كامل في الرتب، القنوات، والأنظمة الآلية."></p>
+
+  </div>
+
+  <div class="feature">
+
+    <h3 data-en="Protection System" data-ar="نظام الحماية">Protection System</h3>
+
+    <p data-en="Anti-nuke, anti-raid, and suspicious activity tracking in real-time." data-ar="حماية من التخريب، الغارات، وتتبع النشاطات المشبوهة."></p>
+
+  </div>
+
+  <div class="feature">
+
+    <h3 data-en="Ticket System" data-ar="نظام التذاكر">Ticket System</h3>
+
+    <p data-en="Modern ticketing solution with buttons and panel center." data-ar="نظام تذاكر حديث بزرّ واحد ولوحة مركزية."></p>
+
+  </div>
+
+  <div class="feature">
+
+    <h3 data-en="Giveaway Manager" data-ar="نظام القيف أواي">Giveaway Manager</h3>
+
+    <p data-en="Host professional giveaways with timers and winner picking." data-ar="نظام قيف أواي احترافي مع مؤقت وتحديد فائز."></p>
+
+  </div>
+
+  <div class="feature">
+
+    <h3 data-en="Game & Fun Commands" data-ar="ألعاب وتسلية">Game & Fun Commands</h3>
+
+    <p data-en="Enjoy a growing collection of games and fun interactions." data-ar="مجموعة متزايدة من الألعاب والتفاعلات الترفيهية."></p>
+
+  </div>
+
+  <div class="feature">
+
+    <h3 data-en="User Engagement" data-ar="تفاعل المستخدم">User Engagement</h3>
+
+    <p data-en="Ranking, daily rewards, suggestions & satisfaction systems." data-ar="نظام نقاط، مكافآت يومية، اقتراحات ورضا المستخدم."></p>
+
+  </div>
+
+</section>
+
+<footer>
+
+  <p>© 2025 Controlix | Developed by xgg.2</p>
+
+</footer>
+
+<script>
+
+  const langBtn = document.getElementById("langBtn");
+
+  let currentLang = "en";
+
+  langBtn.addEventListener("click", () => {
+
+    currentLang = currentLang === "en" ? "ar" : "en";
+
+    langBtn.textContent = currentLang === "en" ? "AR" : "EN";
+
+    document.body.style.direction = currentLang === "ar" ? "rtl" : "ltr";
+
+    document.querySelectorAll("[data-en]").forEach(el => {
+
+      el.textContent = el.getAttribute(`data-${currentLang}`);
+
+    });
+
+    // Update text in middle (hero section)
+
+    document.getElementById("desc").textContent = currentLang === "en" ?
+
+      "Controlix is a powerful, verified Discord bot equipped with advanced server management tools including protection systems, ticket support, giveaways, games, ranking, and more to satisfy all server needs." :
+
+      "Controlix هو بوت ديسكورد قوي وموثق مزود بأدوات إدارة سيرفر متقدمة بما في ذلك أنظمة الحماية، الدعم عبر التذاكر، القيف أواي، الألعاب، الترتيب، وأكثر لتلبية جميع احتياجات السيرفر.";
+
+    document.getElementById("botName").textContent = currentLang === "en" ? "Controlix" : "كنترولكس";
+
+  });
+
+  const canvas = document.getElementById("bgCanvas");
+
+  const ctx = canvas.getContext("2d");
+
+  let width = canvas.width = window.innerWidth;
+
+  let height = canvas.height = window.innerHeight;
+
+  window.addEventListener("resize", () => {
+
+    width = canvas.width = window.innerWidth;
+
+    height = canvas.height = window.innerHeight;
+
+  });
+
+  const particles = [];
+
+  const particleCount = 100;
+
+  for (let i = 0; i < particleCount; i++) {
+
+    particles.push({
+
+      x: Math.random() * width,
+
+      y: Math.random() * height,
+
+      radius: Math.random() * 2 + 1,
+
+      speedX: Math.random() * 1 - 0.5,
+
+      speedY: Math.random() * 1 - 0.5,
+
+    });
+
+  }
+
+  function animate() {
+
+    ctx.clearRect(0, 0, width, height);
+
+    particles.forEach(p => {
+
+      p.x += p.speedX;
+
+      p.y += p.speedY;
+
+      if (p.x > width || p.x < 0) p.speedX = -p.speedX;
+
+      if (p.y > height || p.y < 0) p.speedY = -p.speedY;
+
+      ctx.beginPath();
+
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+
+      ctx.fillStyle = "#7f5af0";
+
+      ctx.fill();
+
+    });
+
+    requestAnimationFrame(animate);
+
+  }
+
+  animate();
+
+</script>
+
+
+
+</body></html>
